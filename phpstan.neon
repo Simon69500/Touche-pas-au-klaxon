@@ -1,5 +1,11 @@
 parameters:
-    level: 1
+    level: 1  # Commence niveau 1, monte progressivement vers 8
     paths:
         - app
         - public
+    excludePaths:
+        - vendor
+        - node_modules
+        - tests
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
