@@ -1,1 +1,1 @@
-{"version":1,"defects":[],"times":[]}
+{"version":1,"defects":{"DatabaseTest::testConnexionBDD":4,"DatabaseTest::testConnexionBDD_Erreur":3},"times":{"DatabaseTest::testConnexionBDD":0.012,"DatabaseTest::testConnexionBDD_Erreur":0.006}}

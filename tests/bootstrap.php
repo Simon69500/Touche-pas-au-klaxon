@@ -6,5 +6,9 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 // Configuration spécifique aux tests
-$_ENV['APP_ENV'] = 'testing';
-$_ENV['DB_NAME'] = 'touche_pas_au_klaxon_test';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+// Vérification
+echo "DB_USER depuis bootstrap: ";
+var_dump(getenv('DB_USER'));
