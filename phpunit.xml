@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit 
-    bootstrap="vendor/autoload.php"
+    bootstrap="tests/bootstrap.php"
     colors="true"
     processIsolation="false"
     stopOnFailure="false"
@@ -26,6 +26,11 @@
     
     <php>
         <env name="APP_ENV" value="testing"/>
-        <env name="DB_NAME" value="touche_pas_au_klaxon_test"/>
+        <env name="DB_HOST" value="localhost"/>
+        <env name="DB_PORT" value="3306"/>
+        <env name="DB_NAME" value="touche_pas_au_klaxon"/>
+        <env name="DB_USER" value="root"/>
+        <env name="DB_PASS" value=""/>
     </php>
+
 </phpunit>
