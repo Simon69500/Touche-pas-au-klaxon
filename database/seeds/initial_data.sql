@@ -1,4 +1,7 @@
--- Insertion Villes
+/**
+ * Insertion des villes dans la table agences
+ * Chaque ville correspond à une agence présente dans le système.
+ */
 INSERT INTO agences (ville) 
 VALUES 
 ('Paris'),
@@ -14,7 +17,12 @@ VALUES
 ('Rennes'),
 ('Reims');
 
--- Insertion utilisateurs
+
+/**
+ * Insertion des utilisateurs dans la table users
+ * Chaque utilisateur a un nom, prénom, téléphone, email et un rôle.
+ * Le rôle peut être 'employe' ou 'admin' pour gérer les droits d'accès.
+ */
 INSERT INTO users (nom, prenom, telephone, email, role)
 VALUES
 ('Martin', 'Alexandre', '0612345678', 'alexandre.martin@email.fr', 'employe'),
