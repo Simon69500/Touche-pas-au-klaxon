@@ -1,0 +1,15 @@
+@use 'variables.scss' as *;
+
+body {
+    background-color: $bgColor-main;
+    color: $colorText-main;
+}
+
+button {
+    background-color: $colorBtn;
+    color: white;
+
+    &hover {
+        background-color: $colorAccent-1;
+    }
+}
