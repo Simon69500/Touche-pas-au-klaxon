@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS users (
     prenom VARCHAR(255) NOT NULL,
     telephone VARCHAR(15),
     email VARCHAR(130) NOT NULL UNIQUE,
-    passworld_hash VARCHAR(255) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
     role VARCHAR(50) NOT NULL
 );
 
