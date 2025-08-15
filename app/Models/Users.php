@@ -80,7 +80,7 @@ class User
             ':telephone' => $data['telephone'] ?? null,
             ':email' => $data['email'],
             ':role' => $data['role'],
-            'password_hash' => $password_hash
+            ':password_hash' => $password_hash
         ]);
     }
 
