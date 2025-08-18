@@ -58,6 +58,36 @@ class Trip
         }
 
         /**
+         * Récupérer uniquement les trajets disponibles :
+         * - encore des places
+         * - date de départ >= maintenant
+         * - triés par date de départ croissante
+         */
+        public function tripAvailable(): array
+        {
+            $stmt = $this->pdo->query("
+                SELECT t.id_trajet,
+                ad.ville AS ville_depart,
+                aa.ville AS ville_arrivee,
+                t.date_heure_depart,
+                t.date_heure_arrive,
+                t.places_dispo, 
+                t.auteur_id,
+                u.nom,
+                u.prenom,
+                u.email,
+                u.telephone,
+                FROM trajets t 
+                JOIN agences ad ON t.agence_depart_id = ad.id_agence 
+                JOIN agences aa ON t.agance_arrive_id = aa.id_agence 
+                JOIN users u ON t.auteur_id = u.id_user 
+                WHERE t.places_dispo > 0 AND t.date_heure_depart > NOW()
+                ORDER BY t.date_heure_depart ASC
+            ");
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
+        /**
          * Trouver un trajet par ID (find)
          */
         public function tripFind(int $id_trajet): ?array

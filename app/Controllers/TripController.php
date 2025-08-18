@@ -50,4 +50,34 @@ class TripController
             require __DIR__ . '/../Views/trips/create.php';
         }
     }
+
+    /**
+     * Supprimer un trajet 
+     * @method delete
+     */
+    public function delete() 
+    {
+
+        session_start();
+
+        if(!isset($_SESSION['user'])) {
+            header('Location: /login');
+            exit;
+        }
+
+        $id_trajet = $_GET['id'] ?? null;
+        if($id_trajet) {
+            $tripModel = new Trip();
+            $trip = $tripModel->tripFind($id_trajet);
+        }
+
+        // Sécurité : vérifier que l'utilisateur est bien l'auteur
+        if($trip && $trip['auteur_id'] == $_SESSION['user']['id']) {
+            $tripModel->tripDelete($id_trajet);
+        }
+
+        // Rediriger vers la liste après suppression
+        header('Location: /trips');
+        exit;
+    }
 }
