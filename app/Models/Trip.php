@@ -109,21 +109,20 @@ class Trip
                 date_heure_depart = :date_heure_depart,
                 date_heure_arrive = :date_heure_arrive,
                 places_total = :places_total,
-                places_dispo = :places_dispo,
-                contact_id = :contact_id
-                WHERE id_trajet = :id_trajet");
+                places_dispo = :places_dispo
+                WHERE id_trajet = :id_trajet"); // <-- plus de virgule ici
 
             return $stmt->execute([
-                ':agence_depart_id' => $data ['agence_depart_id'],
-                ':agence_arrive_id' => $data ['agence_arrive_id'],
-                ':date_heure_depart' => $data ['date_heure_depart'],
-                ':date_heure_arrive' => $data ['date_heure_arrive'],
-                ':places_total' => $data ['places_total'],
-                ':places_dispo' => $data ['places_dispo'],
-                ':contact_id' => $data ['contact_id'],
+                ':agence_depart_id' => $data['agence_depart_id'],
+                ':agence_arrive_id' => $data['agence_arrive_id'],
+                ':date_heure_depart' => $data['date_heure_depart'],
+                ':date_heure_arrive' => $data['date_heure_arrive'],
+                ':places_total' => $data['places_total'],
+                ':places_dispo' => $data['places_dispo'],
                 ':id_trajet' => $id_trajet,
             ]);
         }
+
 
         /**
          * Supprimer un trajet (delete)

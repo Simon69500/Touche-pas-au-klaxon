@@ -21,7 +21,7 @@
             <?php endif; ?> 
             
             <!-- Formulaire de modification du trajet seulement modifiable par le créateur  -->
-            <form action="/trips/update?id=<?= $trip['id_trajet'] ?>" method="POST">
+            <form action="?page=edit&id=<?= $trip['id_trajet'] ?>" method="POST">
                 <fieldset>
                     <legend>Trajet</legend>
 
@@ -46,6 +46,11 @@
                             <?php endforeach; ?>         
                         </select>
                     </div>
+
+                    <div class="mb-3">
+                        <label for="inputPlacesTotal" class="form-label">Places total :</label>
+                        <input type="number" class="form-control" id="inputPlacesTotal" name="places_total" required>
+                    </div>
                     
                     <div class="mb-3">
                         <label for="inputDateDepart" class="form-label">Date et heure de départ :</label>
@@ -62,7 +67,7 @@
                     <button type="submit" class="btn btn-primary">Modifier le trajet</button>
 
                     <?php if($trip['auteur_id'] == $_SESSION['user']['id']): ?>
-                        <a href="/trips/delete?id=<?= $trip['id_trajet'] ?>" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce trajet ?'); ">
+                        <a href="?page=delete&id=<?= $trip['id_trajet'] ?>" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce trajet ?'); ">
                             Supprimer
                         </a>
                     <?php endif; ?>

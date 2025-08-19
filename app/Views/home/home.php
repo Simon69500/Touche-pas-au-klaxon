@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/assets/css/index.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
     
     <title>Accueil - Touche pas au klaxon</title>
 </head>
 <body>
-
+    <!-- Header -->
     <?php include __DIR__. '/../layouts/header.php'; ?>
 
     <!-- Contenue principal -->
      <main class="container mt-5">
         <h1>Liste des trajets </h1>
 
+        <?php $baseUrl = \App\Config\Config::baseUrl(); ?>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -47,8 +50,8 @@
                             
                             <!-- Si l’utilisateur est l’auteur, il peut aussi modifier/supprimer -->
                             <?php if(isset($_SESSION['user']) && $_SESSION['user']['id'] == $trip['auteur_id']): ?>
-                            <a href="/trips/edit?id=<?= $trip['id_trajet'] ?>"><i class="bi bi-pencil-square"></i></a>
-                            <a href="/trips/delete?id=<?= $trip['id_trajet'] ?>"><i class="bi bi-trash"></i></a>
+                            <a href="<?= $baseUrl ?>?page=edit&id=<?= $trip['id_trajet'] ?>"><i class="bi bi-pencil-square"></i></a>
+                            <a href="<?= $baseUrl ?>?page=delete&id=<?= $trip['id_trajet'] ?>"><i class="bi bi-trash"></i></a>
                             <?php endif; ?>
                         <?php endif; ?>
                     </td>
@@ -59,9 +62,13 @@
 
                 <?php endforeach; ?>
             </tbody>
-        </table>                                                    
+        </table>                                             
      </main>
 
+     <!-- Footer -->
     <?php include __DIR__. '/../layouts/footer.php'; ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
