@@ -17,7 +17,7 @@
 
 <header class="bg-light p-3 mb-4">
     <div class="container d-flex justify-content-between align-items-center">
-        <h3>Touche pas au klaxon</h3>
+        <a href="?page=home"><h3>Touche pas au klaxon</h3></a>
 
         <?php $baseUrl = \App\Config\Config::baseUrl(); ?>
         <nav>
@@ -34,7 +34,7 @@
 
             <?php else: ?>
                 <!-- Utilisateur connecté -->
-                <a href="<?= $baseUrl ?>?page=create_trip" class="btn btn-success">Créer un trajet</a>
+                <a href="<?= $baseUrl ?>?page=create" class="btn btn-success">Créer un trajet</a>
                 <span class="ms-2">Bonjour <?= htmlspecialchars($user['prenom'] . ' ' . $user['nom']) ?></span>
                 <a href="<?= $baseUrl ?>?page=logout" class="btn btn-danger ms-2">Déconnexion</a>
             <?php endif; ?>

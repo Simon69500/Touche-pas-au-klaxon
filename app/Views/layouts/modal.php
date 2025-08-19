@@ -14,10 +14,10 @@
 
             <!-- Body -->
             <div class="modal-body">
-                    <p><strong>Conducteur :</strong><?= htmlspecialchars($trip['prenom']. ' ' . $trip['nom']) ?></p>
-                    <p><strong>Téléphone :</strong><?= htmlspecialchars($trip['telephone']) ?></p>
-                    <p><strong>Email :</strong><?= htmlspecialchars($trip['email']) ?></p>
-                    <p><strong>Places totals :</strong><?= htmlspecialchars($trip['places_total']) ?></p>
+                    <p><strong class="p-2">Conducteur :</strong><?= htmlspecialchars($trip['prenom']. ' ' . $trip['nom'] ?? 'Inconnu') ?></p>
+                    <p><strong class="p-2">Téléphone :</strong><?= htmlspecialchars($trip['telephone'] ?? '-') ?></p>
+                    <p><strong class="p-2">Email :</strong><?= htmlspecialchars($trip['email'] ?? '-') ?></p>
+                    <p><strong class="p-2">Places totals :</strong><?= htmlspecialchars($trip['places_dispo'] ?? 'N/A') ?></p>
                 </div>
 
              <!-- Footer -->    

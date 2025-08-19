@@ -7,6 +7,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+        <!-- Header -->
+    <?php include __DIR__. '/../layouts/header.php'; ?>
+
     <main class="container mt-5">
         <div class="create-container">
             <h2>Créer votre Trajet</h2>
@@ -22,7 +25,7 @@
             
             
             <!-- Formulaire de création de nouveau trajet -->
-            <form method="POST" action="">
+            <form method="POST" action="?page=create">
                 <fieldset>
                     <legend>Mon nouveau trajet</legend>
 
@@ -59,7 +62,7 @@
                         <input type="datetime-local" class="form-control" id="inputDateArrive" name="date_heure_arrive" required>
                     </div>
     
-                        <input type="hidden" class="form-control"  name="id_contact" value="<?= $_SESSION['user']['id']?>">
+                        <input type="hidden" name="contact_id" value="<?= $_SESSION['user']['id']?>">
                         <input type="hidden" name="auteur_id" value="<?= $_SESSION['user']['id'] ?>">    
 
                     <button type="submit" class="btn btn-primary">Enregistrer le trajet</button>
@@ -67,5 +70,8 @@
             </form>
         </div>
     </main>
+
+         <!-- Footer -->
+    <?php include __DIR__. '/../layouts/footer.php'; ?>
 </body>
 </html>

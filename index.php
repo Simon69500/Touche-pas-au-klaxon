@@ -10,6 +10,7 @@ session_start();
 use App\Controllers\AuthController;
 use App\Controllers\HomeController;
 use App\Config\Config;
+use App\Controllers\TripController;
 
 // Route simple 
 $page = $_GET['page'] ?? 'home';
@@ -41,6 +42,29 @@ switch ($page) {
     case 'logout': 
         $controller = new AuthController();
         $controller->logout();
+        break;
+
+    case 'create':
+        $controller = new TripController();
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $controller->create();
+        } else {
+            $controller->createForm();
+        }
+        break;
+    
+    case 'edit':
+        $controller = new TripController();
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $controller->edit();
+        } else {
+            $controller->editForm();
+        }
+        break;
+
+    case 'delete':
+        $controller = new TripController();
+        $controller->delete();
         break;
 
     default:
