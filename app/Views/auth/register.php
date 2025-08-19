@@ -12,11 +12,11 @@
 
         <!-- Affichage d'une erreur si elle existe -->
          <?php if (!empty($error)): ?>
-            <div class="alter alter-danger"><?= htmlspecialchars($error) ?></div>
+            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
 
         <!-- Formulaire d'inscription -->
-         <form method="POST" action="/register">
+         <form method="POST" action="?page=register">
             <fieldset>
                 <div class="mb-3">
                     <label for="inputNom" class="form-label">Nom :</label>

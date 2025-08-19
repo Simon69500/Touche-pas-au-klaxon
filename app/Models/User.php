@@ -84,6 +84,13 @@ class User
         ]);
     }
 
+    // Vérification si un email existe déjà 
+    public static function exists(string $email): bool
+    {
+        $instance = new self();
+        return $instance->findByEmail($email) !== null;
+    }
+
     // Getters
 
     public function getId()

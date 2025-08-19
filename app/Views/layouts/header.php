@@ -15,30 +15,29 @@
     $user = $_SESSION['user'] ?? null;
 ?>
 
-<header>
-    <h3>
-        Touche pas au klaxon
-    </h3>
+<header class="bg-light p-3 mb-4">
+    <div class="container d-flex justify-content-between align-items-center">
+        <h3>Touche pas au klaxon</h3>
 
-    <nav>
-        <?php if (!$user): ?>
-        <!-- Utilisateur non connecté -->
-         <button onclick="location.href='/login'">Connexion</button>
+        <?php $baseUrl = \App\Config\Config::baseUrl(); ?>
+        <nav>
+            <?php if (!$user): ?>
+                <!-- Utilisateur non connecté -->
+                <a href="<?= $baseUrl ?>?page=login" class="btn btn-primary">Connexion</a>
 
-        <?php elseif ($user['role'] === 'admin'): ?>
-         <!-- Administrateur -->
-         <button onclick="location.href=''"></button>
-         <button onclick="location.href=''"></button>  
-         <button onclick="location.href=''"></button>     
-         <span>Bonjour <?=htmlspecialchars($user['prenom'] . ' ' . $user['nom']) ?></span>
-         <button onclick="location.href=''">Déconnexion</button>
+            <?php elseif ($user['role'] === 'admin'): ?>
+                <!-- Administrateur -->
+                <a href="<?= $baseUrl ?>?page=admin_trips" class="btn btn-info">Gestion trajets</a>
+                <a href="<?= $baseUrl ?>?page=admin_users" class="btn btn-info">Gestion utilisateurs</a>
+                <span class="ms-2">Bonjour <?= htmlspecialchars($user['prenom'] . ' ' . $user['nom']) ?></span>
+                <a href="<?= $baseUrl ?>?page=logout" class="btn btn-danger ms-2">Déconnexion</a>
 
-         <?php else: ?>
-        <!-- Utilisateur connecté -->
-         <button onclick="location.href=''">Créer un trajet</button>
-         <span>Bonjour <?=htmlspecialchars($user['prenom'] . '' . $user['nom']) ?></span>
-         <button onclick="location.href=''">Déconnexion</button>
-         
-         <?php endif; ?>
-    </nav>
+            <?php else: ?>
+                <!-- Utilisateur connecté -->
+                <a href="<?= $baseUrl ?>?page=create_trip" class="btn btn-success">Créer un trajet</a>
+                <span class="ms-2">Bonjour <?= htmlspecialchars($user['prenom'] . ' ' . $user['nom']) ?></span>
+                <a href="<?= $baseUrl ?>?page=logout" class="btn btn-danger ms-2">Déconnexion</a>
+            <?php endif; ?>
+        </nav>
+    </div>
 </header>

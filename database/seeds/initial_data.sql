@@ -25,7 +25,7 @@ VALUES
  */
 INSERT INTO users (nom, prenom, telephone, email, password_hash, role)
 VALUES
-('Martin', 'Alexandre', '0612345678', 'alexandre.martin@email.fr', '', 'employe'),
+('Martin', 'Alexandre', '0612345678', 'alexandre.martin@email.fr', '$2y$10$mL2/CuZO4WlnulpN0.vgBuwseAvCP1VDLO6ZckbpldRDeJslZbIcG', 'employe'),
 ('Dubois', 'Sophie', '0698765432', 'sophie.dubois@email.fr', '', 'employe'),
 ('Bernard', 'Julien', '0622446688', 'julien.bernard@email.fr', '', 'employe'),
 ('Moreau', 'Camille', '0611223344', 'camille.moreau@email.fr', '', 'employe'),
