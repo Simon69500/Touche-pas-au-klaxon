@@ -76,10 +76,10 @@ class Trip
                 u.nom,
                 u.prenom,
                 u.email,
-                u.telephone,
+                u.telephone
                 FROM trajets t 
                 JOIN agences ad ON t.agence_depart_id = ad.id_agence 
-                JOIN agences aa ON t.agance_arrive_id = aa.id_agence 
+                JOIN agences aa ON t.agence_arrive_id = aa.id_agence 
                 JOIN users u ON t.auteur_id = u.id_user 
                 WHERE t.places_dispo > 0 AND t.date_heure_depart > NOW()
                 ORDER BY t.date_heure_depart ASC

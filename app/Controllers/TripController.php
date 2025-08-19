@@ -80,4 +80,10 @@ class TripController
         header('Location: /trips');
         exit;
     }
+
+    public function home() {
+    $tripModel = new \App\Models\Trip();
+    $trips = $tripModel->tripAvailable(); // méthode à créer dans le modèle
+    require __DIR__ . '/../Views/home/home.php';
+}
 }
