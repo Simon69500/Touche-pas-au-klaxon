@@ -48,4 +48,19 @@ class Config
             'charset' => 'utf8mb4'
         ];
     }
+
+     /**
+     * Retourne la base URL dynamique
+     * Exemple : http://localhost/touche-pas-au-klaxon
+     */
+    public static function baseUrl(): string 
+    {
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off'
+                    || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        
+        $host = $_SERVER['HTTP_HOST'];
+        $scriptDir = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+
+        return rtrim($protocol . $host . $scriptDir, '/');
+    }
 }

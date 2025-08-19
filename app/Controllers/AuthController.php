@@ -6,6 +6,8 @@ use App\Models\User;
 
 class AuthController
 {
+        // --- Connexion existante ---
+
     // Afficher la page du formulaire de connexion
     public function loginForm()
     {
@@ -29,7 +31,7 @@ class AuthController
             'email' => $user->getEmail(),
             'role' => $user->getRole(),
         ];
-        header('Location: /');
+        header('Location: ' . \App\Config\Config::baseUrl());
         exit;
     } else {
         $error = 'Email ou mot de passe incorrect.';
@@ -37,19 +39,11 @@ class AuthController
     }
     }
 
-    // Partie pour la deconnexion de l'utilisateur
-    public function logout()
-    {
-        session_destroy();
-        header('Location: /');
-        exit;
-    }
-
     // Si la session est vide sans utilisateur on revoi vers la page login
     public static function requireLogin()
     {
         if(empty($_SESSION['user'])) {
-            header('Location: /login');
+            header('Location: ?page=login');
             exit;
         }
     }
@@ -64,4 +58,64 @@ class AuthController
             exit;
         }
     }
+
+
+        // --- Partie Inscription ---
+
+    // Affiche le formulaire d'inscription
+    public function registerForm()
+    {
+        require __DIR__. '/../Views/auth/register.php';
+    }
+
+    // Traite le formulaire d'inscription 
+    public function register()
+    {
+        $nom = trim($_POST['nom'] ?? '');
+        $prenom = trim($_POST['prenom'] ?? '');
+        $email = trim($_POST['email'] ?? '');
+        $telephone = trim($_POST['telephone'] ?? '');
+        $password = $_POST['password'] ?? '';
+        $role = $_POST['role'] ?? 'user';
+
+        // Vérification simple 
+        if(empty($nom) || empty($prenom) || empty($email) || empty($password)) {
+            $error = "Tous les champs obligatoires doivent être remplis.";
+             require __DIR__. '/../Views/auth/register.php';
+             return;
+        }
+
+        // Vérifier si l'email existe déjà 
+        if(User::exists($email)) {
+            $error = "Un compte avec cet email existe déjà.";
+             require __DIR__. '/../Views/auth/register.php';
+             return;
+        }
+
+      // Création de l'utilisateur
+        $user = new User();
+        $user->create([
+            'nom' => $nom,
+            'prenom' => $prenom,
+            'email' => $email,
+            'telephone' => $telephone,
+            'role' => $role,
+            'password' => $password
+        ]);
+        // Redirection vers la page de connexion après inscription
+        header('Location:' . \App\Config\Config::baseUrl());
+        exit;
+    }
+
+    // -- Partie déconnexion -- 
+
+        // Partie pour la deconnexion de l'utilisateur
+    public function logout()
+    {   
+        session_unset();
+        session_destroy();
+        header('Location: ' . \App\Config\Config::baseUrl());
+        exit;
+    }
+
 }

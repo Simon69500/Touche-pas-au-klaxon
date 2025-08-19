@@ -15,8 +15,8 @@
             <?php if (!empty($error)): ?>
                 <div class="error"><?= htmlspecialchars($error) ?></div>
             <?php endif; ?>
-
-            <form method="POST" action="/login">
+            
+                <form method="POST" action="?page=login">
                 <fieldset>
                     <legend>Formulaire de connexion</legend>
 
@@ -31,10 +31,15 @@
                         <input type="password" name="password" id="inputMdp" class="form-control" required>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Se connecter</button>
+                    <button type="submit" class="btn btn-primary mt-3">Se connecter</button>
 
                 </fieldset>
             </form>
+
+            <div class="mt-3">
+                <p>Pas encore de compte ?</p>
+                <a href="?page=register" class="btn btn-outline-primary">Créer un compte</a>
+            </div>
         </div>
     </main>
 </body>
