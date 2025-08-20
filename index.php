@@ -48,6 +48,12 @@ use App\Controllers\TripController;
             case 'createAgence':                  
                 $controller->createAgence();
                 break;
+            
+            case 'editAgence':
+                $id_agence = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+                $controller->editAgence($id_agence);
+                break;
+
 
             case 'deleteAgence':
                 $id_agence = $_GET['id'] ?? null;
@@ -122,5 +128,5 @@ use App\Controllers\TripController;
                 http_response_code(404);
                 echo "Page non trouvée";
                 break;
-        }
+            }
 }

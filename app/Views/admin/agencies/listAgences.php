@@ -1,41 +1,59 @@
-<?php
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <title>Liste des agences</title>
+</head>
+<body>
+        <!-- Header -->
+    <?php include __DIR__ . '/../../layouts/header.php'; ?>
 
-namespace App\Models;
+<main class="container mt-4">
 
-use App\Config\Database;
-use PDO;
+    <h1>Liste des agences</h1>
 
-class Agence 
-{
-    private $id_agence;
-    private $ville;
+    <!-- Bouton pour retour dashboard -->
+    <a href="index.php?controller=admin&action=dashboard" class="btn btn-primary mb-3 ">Tableau de bord</a>
 
-    private $pdo;
+    <!-- Tableau -->
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nom de la ville</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if(!empty($agences) && is_array($agences)): ?>
+                <?php foreach($agences as $agence): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($agence['ville']) ?></td>
+                        <td>
+                            <a href="index.php?controller=admin&action=editAgence&id=<?= $agence['id_agence'] ?>"><i class="bi bi-pencil-square"></i></a>
+                            <a href="index.php?controller=admin&action=deleteAgence&id=<?= $agence['id_agence'] ?>" 
+                            onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette agence ?');">
+                            <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr><td colspan="2">Aucune agence trouvée</td></tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
 
-    public function __construct()
-    {
-        $this->pdo = Database::getInstance()->getConnection();
-    }
+    <!-- Bouton pour créer une nouvelle agence -->
+    <a href="index.php?controller=admin&action=createAgence" class="btn btn-success mb-3">Ajouter une agence</a>
+</main>
 
-    /**
-     * Recuperer toutes les agences (all)
-     * triés par ordre alphabétique
-     */
-    public function agenceAll(): array
-    {
-        $stmt = $this->pdo->query("SELECT * FROM agences ORDER BY ville ASC");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+        <!-- Footer -->
+    <?php include __DIR__ . '/../../layouts/footer.php'; ?>
 
-    /**
-     * Trouver une agence par ID (find)
-     */
-    public function agenceID(int $id_agence): ?array
-    {
-        $stmt = $this->pdo->prepare("SELECT * FROM agences WHERE id_agence = :id_agence");
-        $stmt->execute([':id_agence'  => $id_agence]);
-        $data = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $data ?: null;
-    }
-
-}
+        <!-- JS Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

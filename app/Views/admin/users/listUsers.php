@@ -1,125 +1,51 @@
-<?php
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <title>Liste des utilisateurs</title>
+</head>
+<body>
+        <!-- Header -->
+    <?php include __DIR__ . '/../../layouts/header.php'; ?>
 
-namespace App\Models;
 
-use App\Config\Database;
-use PDO;
-
-class User
-{
-    private $id_user;
-    private $nom;
-    private $prenom;
-    private $telephone;
-    private $email;
-    private $role;
-    private $password_hash;
-
-    private $pdo;
-
-    public function __construct()
-    {
-        $this->pdo = Database::getInstance()->getConnection();
-    }
-
-    // Trouver un utilisateur par email
-    public function findByEmail(string $email) : ?self 
-    {
-        $stmt = $this->pdo->prepare('SELECT * FROM users WHERE email = :email');
-        $stmt->execute(['email' => $email]);
-        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    <main class="container mt-4">
+        <a href="index.php?controller=admin&action=dashboard" class="btn btn-primary m-3">Tableau de bord</a>
         
-        if($data === false) {
-            return null;
-        }
+        <!-- Utilisateurs -->
+            <div class="tab-pane fade show active" id="users">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Email</th>
+                            <th>Rôle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($users as $user): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($user['nom']) ?></td>
+                            <td><?= htmlspecialchars($user['prenom']) ?></td>
+                            <td><?= htmlspecialchars($user['email']) ?></td>
+                            <td><?= htmlspecialchars($user['role']) ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+    </main>
 
-        $user = new self();
-        $user->id_user = $data['id_user'];
-        $user->nom = $data['nom'];
-        $user->prenom = $data['prenom'];
-        $user->telephone = $data['telephone'];
-        $user->email = $data['email'];
-        $user->role = $data['role'];
-        $user->password_hash = $data['password_hash'];
+        <!-- Footer -->
+    <?php include __DIR__ . '/../../layouts/footer.php'; ?>
 
-        return $user;
-    }
+    <!-- JS Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    // Vérifier le mot de passe
-    public function verifyPassword(string $password) : bool 
-    {
-        return password_verify($password, $this->password_hash);    
-    }
-
-    // Authentification compléte (static)
-    public static function authenticate(string $email, string $password) : ?self 
-    {
-        $instance = new self();
-        $user = $instance->findByEmail($email);
-        
-        if($user && $user->verifyPassword($password)) {
-            return $user;
-        }
-
-        return null;
-    }
-
-    // Creation user
-    public function create(array $data): bool
-    {
-        $sql = "INSERT INTO users(nom, prenom, telephone, email, role, password_hash)
-        VALUES (:nom, :prenom, :telephone, :email, :role, :password_hash)";
-
-        $stmt = $this->pdo->prepare($sql);
-
-        $password_hash = password_hash($data['password'], PASSWORD_DEFAULT);
-
-        return $stmt->execute([
-            ':nom' => $data['nom'],
-            ':prenom' => $data['prenom'],
-            ':telephone' => $data['telephone'] ?? null,
-            ':email' => $data['email'],
-            ':role' => $data['role'],
-            ':password_hash' => $password_hash
-        ]);
-    }
-
-    // Vérification si un email existe déjà 
-    public static function exists(string $email): bool
-    {
-        $instance = new self();
-        return $instance->findByEmail($email) !== null;
-    }
-
-    // Getters
-
-    public function getId()
-    {
-        return $this->id_user;
-    }
-
-    public function getNom()
-    {
-        return $this->nom;
-    }
-
-    public function getPrenom()
-    {
-        return $this->prenom;
-    }
-
-    public function getTelephone()
-    {
-        return $this->telephone;
-    }
-
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    public function getRole()
-    {
-        return $this->role;
-    }
-}
+</body>
+</html>

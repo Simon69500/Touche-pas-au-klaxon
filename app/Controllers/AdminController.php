@@ -44,7 +44,7 @@ class AdminController {
     public function listUsers()
     {
         $users = User::getAll();
-        require __DIR__ . '/../Views/admin/users/userAdmin.php';
+        require __DIR__ . '/../Views/admin/users/listUsers.php';
     }
 
     /**
@@ -53,7 +53,7 @@ class AdminController {
     public function listTrips()
     {
         $trips = (new Trip())->tripAvailable();
-        require __DIR__ . '/../Views/admin/trips/tripAdmin.php';
+        require __DIR__ . '/../Views/admin/trips/listTrips.php';
     }
 
     /**
@@ -72,7 +72,8 @@ class AdminController {
     public function listAgences()
     {
         $agences = Agence::getAll();
-        require __DIR__ . '/../Views/admin/agencies/agenceAdmin.php';
+
+        require __DIR__ . '/../Views/admin/agencies/listAgences.php';
     }
 
     /**
@@ -87,8 +88,32 @@ class AdminController {
             exit;
         }
 
+        $agences = Agence::getAll(); 
         require __DIR__ . '/../Views/admin/agencies/createAgence.php';
     }
+
+    /**
+     * modifier une agence
+     */
+    public function editAgence(int $id_agence)
+    {
+        $agence = Agence::find($id_agence);
+
+        if(!$agence) {
+            header('Location: index.php?controller=admin&action=listAgences');
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $ville = trim($_POST['ville']);
+            Agence::update($id_agence, ['ville' => $ville]);
+            header('Location: index.php?controller=admin&action=listAgences');
+            exit;
+        }
+
+        require __DIR__ . '/../Views/admin/agencies/editAgence.php';
+    }
+
 
     /**
      * Supprimer une agence

@@ -56,6 +56,19 @@ class Agence
         ]);
     }
 
+    /**
+     * Modifier une agence
+     */
+    public static function update(int $id_agence, array $data): bool
+{
+    $instance = new self();
+    $stmt = $instance->pdo->prepare("UPDATE agences SET ville = :ville WHERE id_agence = :id_agence");
+    return $stmt->execute([
+        ':ville' => $data['ville'],
+        ':id_agence' => $id_agence
+    ]);
+}
+
         /**
          * Supprimer une Agence (delete)
          */
