@@ -79,6 +79,7 @@ $agences = \App\Models\Agence::getAll();
                             <th>Date arrivée</th>
                             <th>Heure arrivée</th>
                             <th>Places dispo</th>
+                            <th>Contact</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -93,6 +94,7 @@ $agences = \App\Models\Agence::getAll();
                             <td><?= date('Y-m-d', strtotime($trip['date_heure_arrive'])) ?></td>
                             <td><?= date('H:i', strtotime($trip['date_heure_arrive'])) ?></td>
                             <td><?= htmlspecialchars($trip['places_dispo']) ?></td>
+                            <td><?= htmlspecialchars($trip['prenom']. ' ' . $trip['nom']) ?></td>
                             <td>
                                 <a href="index.php?controller=admin&action=editTrip&id=<?= $trip['id_trajet'] ?>"><i class="bi bi-pencil-square"></i></a>
                                 <a href="index.php?controller=admin&action=deleteTrip&id=<?= $trip['id_trajet'] ?>"><i class="bi bi-trash"></i></a>

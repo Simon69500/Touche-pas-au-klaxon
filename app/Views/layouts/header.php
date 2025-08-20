@@ -17,7 +17,7 @@
 
 <header class="bg-light p-3 mb-4">
     <div class="container d-flex justify-content-between align-items-center">
-        <a href="?page=home"><h3>Touche pas au klaxon</h3></a>
+        <h3>Touche pas au klaxon</h3>
 
         <?php $baseUrl = \App\Config\Config::baseUrl(); ?>
         <nav>
