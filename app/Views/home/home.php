@@ -15,8 +15,15 @@
 
     <!-- Contenue principal -->
      <main class="container mt-5">
-        <h1>Liste des trajets </h1>
 
+        <!-- Titre principal personnalisé -->
+        <?php if(isset($_SESSION['user'])): ?>
+            <h1>Trajet proposés</h1>
+        <?php else: ?>
+            <h1>Pour obtenir plus d'information sur un trajet, veuillez vous connecter</h1>
+        <?php endif; ?>
+        
+        <!-- Tableau des trajets -->
         <?php $baseUrl = \App\Config\Config::baseUrl(); ?>
         <table class="table table-striped">
             <thead>
