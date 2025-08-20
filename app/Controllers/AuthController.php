@@ -31,7 +31,13 @@ class AuthController
             'email' => $user->getEmail(),
             'role' => $user->getRole(),
         ];
-        header('Location: ' . \App\Config\Config::baseUrl());
+
+        // Redirection selon le rôle 
+        if ($user->getRole() === 'admin') {
+            header('Location: index.php?controller=admin&action=dashboard');
+        } else {
+            header('Location: index.php?page=home');
+        }
         exit;
     } else {
         $error = 'Email ou mot de passe incorrect.';

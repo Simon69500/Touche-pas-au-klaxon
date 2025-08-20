@@ -45,17 +45,6 @@ class User
         return $user;
     }
 
-    /**
-    * Récuprer tous les users (all)
-     * triés par nom croissante.
-    */
-    public static function getAll(): array
-        {   
-            $instance = new self();
-            $stmt = $instance->pdo->query("SELECT * FROM users ORDER BY nom ASC");
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-
     // Vérifier le mot de passe
     public function verifyPassword(string $password) : bool 
     {
