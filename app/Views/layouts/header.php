@@ -28,8 +28,8 @@
             <?php elseif ($user['role'] === 'admin'): ?>
                 <!-- Administrateur -->
                 <a href="index.php?controller=admin&action=listUsers" class="btn btn-info">Utilisateurs</a>
-                <a href="index.php?controller=admin&action=listTrips" class="btn btn-info">Agences</a>
-                <a href="index.php?controller=admin&action=listAgences" class="btn btn-info">Trajets</a>
+                <a href="index.php?controller=admin&action=listAgences" class="btn btn-info">Agences</a>
+                <a href="index.php?controller=admin&action=listTrips" class="btn btn-info">Trajets</a>
                 <span class="ms-2">Bonjour <?= htmlspecialchars($user['prenom'] . ' ' . $user['nom']) ?></span>
                 <a href="<?= $baseUrl ?>?page=logout" class="btn btn-danger ms-2">Déconnexion</a>
 

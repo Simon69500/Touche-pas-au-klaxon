@@ -52,7 +52,6 @@ $agences = \App\Models\Agence::getAll();
                             <th>Prénom</th>
                             <th>Email</th>
                             <th>Rôle</th>
-                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,10 +61,6 @@ $agences = \App\Models\Agence::getAll();
                             <td><?= htmlspecialchars($user['prenom']) ?></td>
                             <td><?= htmlspecialchars($user['email']) ?></td>
                             <td><?= htmlspecialchars($user['role']) ?></td>
-                            <td>
-                                <a href="index.php?controller=admin&action=editUser&id=<?= $user['id_user'] ?>"><i class="bi bi-pencil-square"></i></a>
-                                <a href="index.php?controller=admin&action=deleteUser&id=<?= $user['id_user'] ?>"><i class="bi bi-trash"></i></a>
-                            </td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
