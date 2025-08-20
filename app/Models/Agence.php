@@ -21,21 +21,49 @@ class Agence
      * Recuperer toutes les agences (all)
      * triés par ordre alphabétique
      */
-    public function agenceAll(): array
-    {
-        $stmt = $this->pdo->query("SELECT * FROM agences ORDER BY ville ASC");
+    public static function getAll(): array
+    {   
+        $instance = new self();
+        $stmt = $instance->pdo->query("SELECT * FROM agences ORDER BY ville ASC");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * Trouver une agence par ID (find)
      */
-    public function agenceID(int $id_agence): ?array
+    public static function find(int $id_agence): ?array
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM agences WHERE id_agence = :id_agence");
-        $stmt->execute([':id_agence'  => $id_agence]);
-        $data = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $data ?: null;
+        $instance = new self();
+        $stmt = $instance->pdo->prepare("SELECT * FROM agences WHERE id_agence = :id_agence");
+        $stmt->execute([':id_agence' => $id_agence]);
+        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
     }
+
+
+    /**
+     * Creer une agence
+     */
+    public static function create(array $data): bool
+    {   
+        $sql = "INSERT INTO agences(ville)
+        VALUES (:ville)";
+
+        $instance = new self();
+        $stmt = $instance->pdo->prepare($sql);
+
+        return $stmt->execute([
+            ':ville' => $data['ville'],
+        ]);
+    }
+
+        /**
+         * Supprimer une Agence (delete)
+         */
+        public static function delete(int $id_agence): bool
+        {
+            $instance = new self();
+            $stmt = $instance->pdo->prepare("DELETE FROM agences WHERE id_agence = :id_agence");
+            return $stmt->execute([':id_agence' => $id_agence]);
+        }
 
 }

@@ -51,10 +51,9 @@ class Trip
          * Récuprer tous les trajets (all)
          * triés par date de départ croissante.
          */
-        public static function getAll(): array
-        {   
-            $instance = new self();
-            $stmt = $instance->pdo->query("SELECT * FROM trajets ORDER BY date_heure_depart ASC");
+        public function tripAll(): array
+        {
+            $stmt = $this->pdo->query("SELECT * FROM trajets ORDER BY date_heure_depart ASC");
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
@@ -91,10 +90,9 @@ class Trip
         /**
          * Trouver un trajet par ID (find)
          */
-        public static function tripFind(int $id_trajet): ?array
+        public function tripFind(int $id_trajet): ?array
         {
-            $instance = new self();
-            $stmt = $instance->pdo->prepare("SELECT * FROM trajets WHERE id_trajet = :id_trajet");
+            $stmt = $this->pdo->prepare("SELECT * FROM trajets WHERE id_trajet = :id_trajet");
             $stmt->execute([':id_trajet' => $id_trajet]);
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
             return $data ?: null ;
@@ -129,12 +127,9 @@ class Trip
         /**
          * Supprimer un trajet (delete)
          */
-        public static function delete(int $id_trajet): bool
+        public function tripDelete(int $id_trajet): bool
         {
-            $instance = new self(); 
-            $stmt = $instance->pdo->prepare("DELETE FROM trajets WHERE id_trajet = :id_trajet");
+            $stmt = $this->pdo->prepare("DELETE FROM trajets WHERE id_trajet = :id_trajet");
             return $stmt->execute([':id_trajet' => $id_trajet]);
         }
-
-
 }  
