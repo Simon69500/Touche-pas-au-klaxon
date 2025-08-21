@@ -37,7 +37,7 @@ PHP 7.4 ou supérieur
 
 MySQL 
 
-Serveur web (Apache)
+Serveur web (Apache) - XAMMPP recommandé
 
 Composer
 
@@ -45,12 +45,8 @@ Navigateur moderne (Chrome, Firefox, Edge)
 
 ### Installation
 
-#### Cloner le projet :
-
-`
-git clone [lien du dépôt]
-cd touche-pas-au-klaxon
-`
+#### Copier le projet dans XAMPP :
+- Placer le dossier du projet dans C:\xampp\htdocs\touche-pas-au-klaxon (ou le dossier équivalent sur ton OS)
 
 #### Installer les dépendances :
 
@@ -60,14 +56,16 @@ composer install
 
 #### Créer la base de données :
 
+`
 CREATE DATABASE touche_pas_au_klaxon;
+`
 
+#### Importer la structure et les données de test :
 
-Importer la structure et les données de test :
-
+`
 mysql -u root -p touche_pas_au_klaxon < database/migrations/create_tables.sql
 mysql -u root -p touche_pas_au_klaxon < database/sedds/initial_data.sql
-
+`
 
 #### Configurer l’environnement :
 
@@ -81,55 +79,38 @@ DB_USER=root
 DB_PASSWORD=
 ```
 
-#### Lancer le serveur local :
-`
-php -S localhost:8000 -t public
-`
-
 #### Accéder à l’application :
-
-Ouvrir le navigateur sur http://localhost:8000
+`
+http://localhost/touche-pas-au-klaxon
+`
 
 ### Guide d’utilisation
-Page d’accueil
+#### Page d’accueil
 
-Liste des trajets avec places disponibles, triés par date de départ croissante
+- Liste des trajets avec places disponibles, triés par date de départ croissante
 
-Affiche l’agence de départ, la date de départ, l’agence d’arrivée, la date d’arrivée, et le nombre de places disponibles
+- Affiche l’agence de départ, la date de départ, l’agence d’arrivée, la date d’arrivée, et le nombre de places disponibles
 
-Utilisateur connecté
+#### Utilisateur connecté
 
-Bouton pour afficher les informations complémentaires dans une fenêtre modale : nom, prénom, email, téléphone, nombre total de places
+- Bouton pour afficher les informations complémentaires dans une fenêtre modale : nom, prénom, email, téléphone, nombre total de places
 
-Les auteurs d’un trajet peuvent modifier ou supprimer leur trajet
+- Les auteurs d’un trajet peuvent modifier ou supprimer leur trajet
 
-Possibilité de créer un nouveau trajet
+- Possibilité de créer un nouveau trajet
 
-Administrateur
+#### Administrateur
 
-Tableau de bord avec accès à toutes les fonctionnalités
+- Tableau de bord avec accès à toutes les fonctionnalités
 
-Gestion complète des agences et trajets
+- Gestion complète des agences et trajets
 
 Consultation des utilisateurs
 
-Architecture / MVC
-App/
-├─ Controllers/
-├─ Models/
-├─ Views/
-├─ Config/
-public/
-├─ index.php
-database/
-├─ migrations
-├─ seeds
-.env.example
+#### Compte de test
 
-### Compte de test
+Administrateur : admin@entreprise.fr
+ / motdepasse : password123
 
-Administrateur : admin@example.com
- / motdepasse : 
-
-Utilisateur : user@example.com
- / motdepasse : 
+Utilisateur : alexandre.martin@email.fr
+ / motdepasse : martin123
