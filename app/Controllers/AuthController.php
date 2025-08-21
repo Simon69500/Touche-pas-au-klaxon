@@ -49,8 +49,8 @@ class AuthController
     public static function requireLogin()
     {
         if(empty($_SESSION['user'])) {
-            header('Location: ?page=login');
-            exit;
+            // Au lieu de redirection directe, on lance une exception pour testabilité
+            throw new \Exception('Login requis');
         }
     }
 
@@ -58,10 +58,10 @@ class AuthController
     public static function requireAdmin()
     {
         self::requireLogin();
+
         if($_SESSION['user']['role'] !== 'admin') {
-            http_response_code(403);
-            echo "Accés interdit";
-            exit;
+            // Au lieu de echo/exit, on lance une exception
+            throw new \Exception('Accès interdit');
         }
     }
 
