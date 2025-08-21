@@ -8,25 +8,22 @@ class AuthControllerTest extends TestCase
     protected function setUp(): void
     {
         // On simule la session avec un tableau vide
-        if (!isset($_SESSION)) {
-            $_SESSION = [];
-        } else {
-            $_SESSION = [];
-        }
+        $_SESSION = [];
     }
 
-    public function testRequireLoginRedirectsWhenNotLoggedIn()
+    public function testRequireLoginThrowsExceptionWhenNotLoggedIn()
     {
         $_SESSION = []; // aucun utilisateur connecté
 
-        // On va capturer la redirection
-        $this->expectException(\PHPUnit\Framework\Error\Error::class);
+        // On s'attend à ce qu'une exception soit levée
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Login requis');
 
-        // On appelle la fonction
+        // Appel de la fonction
         AuthController::requireLogin();
     }
 
-    public function testRequireAdminAccessForbiddenForNonAdmin()
+    public function testRequireAdminThrowsExceptionForNonAdminUser()
     {
         // On simule un utilisateur connecté mais non admin
         $_SESSION['user'] = [
@@ -37,13 +34,25 @@ class AuthControllerTest extends TestCase
             'role' => 'employe',
         ];
 
-        // On va capturer le exit() et le message
-        $this->expectOutputString('Accés interdit');
+        // On s'attend à ce qu'une exception soit levée
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Accès interdit');
 
-        try {
-            AuthController::requireAdmin();
-        } catch (\Exception $e) {
-            $this->assertTrue(true); // juste pour capturer exit()
-        }
+        AuthController::requireAdmin();
+    }
+
+    public function testRequireAdminPassesForAdminUser()
+    {
+        // On simule un utilisateur admin
+        $_SESSION['user'] = [
+            'id' => 2,
+            'nom' => 'Durand',
+            'prenom' => 'Claire',
+            'email' => 'claire.durand@email.fr',
+            'role' => 'admin',
+        ];
+
+        // On vérifie que l'appel ne lève pas d'exception
+        $this->assertNull(AuthController::requireAdmin());
     }
 }
