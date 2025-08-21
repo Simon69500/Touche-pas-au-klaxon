@@ -29,33 +29,35 @@ class Database
      * Initialise la connexion PDO.
      */
     private function __construct()
-        {
-            // Autoload de Composer (nécessaire si index.php ne l'a pas déjà fait)
-            require_once __DIR__ . '/../../vendor/autoload.php';
+    {
+        require_once __DIR__ . '/../../vendor/autoload.php';
 
-            // Chargement du fichier .env à la racine du projet
-            $dotenv = Dotenv::createImmutable(__DIR__ . '/../../');
-            $dotenv->load();
+        //  On regarde si APP_ENV=testing
+        $envFile = (getenv('APP_ENV') === 'testing') ? '.env.testing' : '.env';
 
-            $host = $_ENV['DB_HOST'] ?? 'localhost';
-            $db   = $_ENV['DB_NAME'] ?? '';
-            $user = $_ENV['DB_USER'] ?? '';
-            $pass = $_ENV['DB_PASS'] ?? '';
+        $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../', $envFile);
+        $dotenv->load();
 
-            try {
-                $this->pdo = new PDO(
-                    "mysql:host=$host;dbname=$db;charset=utf8mb4",
-                    $user,
-                    $pass,
-                    [
-                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    ]
-                );
-            } catch (PDOException $e) {
-                die("Erreur de connexion à la base de données : " . $e->getMessage());
-            }
+        $host = $_ENV['DB_HOST'] ?? 'localhost';
+        $db   = $_ENV['DB_NAME'] ?? '';
+        $user = $_ENV['DB_USER'] ?? '';
+        $pass = $_ENV['DB_PASS'] ?? '';
+
+        try {
+            $this->pdo = new PDO(
+                "mysql:host=$host;dbname=$db;charset=utf8mb4",
+                $user,
+                $pass,
+                [
+                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                ]
+            );
+        } catch (PDOException $e) {
+            die("Erreur de connexion à la base de données : " . $e->getMessage());
         }
+    }
+
 
     /**
      * Récupère l'instance unique de la classe Database.

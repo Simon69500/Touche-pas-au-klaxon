@@ -12,7 +12,7 @@ class TripController
     public function createForm()
     {
         $agenceModel = new Agence();
-        $agences = $agenceModel->agenceAll();
+        $agences = $agenceModel->getAll();
         require __DIR__ . '/../Views/trips/create.php';
     }
 
@@ -51,7 +51,7 @@ class TripController
         } else {
             // si erreurs , recharger le formulaire avec erreurs
             $agenceModel = new Agence();
-            $agences = $agenceModel->agenceAll();
+            $agences = $agenceModel->getAll();
             require __DIR__ . '/../Views/trips/create.php';
         }
     }
@@ -76,7 +76,7 @@ class TripController
         }
 
         $agenceModel = new Agence;
-        $agences = $agenceModel->agenceAll();
+        $agences = $agenceModel->getAll();
 
         $errors = [];
         require __DIR__ .  '/../Views/trips/edit.php';
@@ -132,7 +132,7 @@ class TripController
         } else {
             // si erreurs , recharger le formulaire avec erreurs
             $agenceModel = new Agence();
-            $agences = $agenceModel->agenceAll();
+            $agences = $agenceModel->getAll();
             require __DIR__ . '/../Views/trips/edit.php';
         }        
     }
@@ -161,7 +161,7 @@ class TripController
 
         // Sécurité : vérifier que l'utilisateur est bien l'auteur
         if($trip && $trip['auteur_id'] == $_SESSION['user']['id']) {
-            $tripModel->tripDelete($id_trajet);
+            $tripModel->delete($id_trajet);
         }
 
         // Rediriger vers la liste après suppression
