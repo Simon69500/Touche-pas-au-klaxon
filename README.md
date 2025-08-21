@@ -7,13 +7,13 @@ Développer une application web interne à l’entreprise pour le covoiturage en
 --- 
 
 ## Fonctionnalités
-1. Pour tous les utilisateurs
+### 1. Pour tous les utilisateurs
 
 - Consulter la liste des trajets disponibles, triée par date de départ croissante
 
 - Voir uniquement les trajets avec des places disponibles
 
-2. Pour un utilisateur connecté
+### 2. Pour un utilisateur connecté
 
 - Consulter les détails d’un trajet (personne à contacter, nombre total de places)
 
@@ -21,7 +21,7 @@ Développer une application web interne à l’entreprise pour le covoiturage en
 
 - Modifier ou supprimer ses propres trajets
 
-3. Pour l’administrateur
+### 3. Pour l’administrateur
 
 - Accéder à toutes les fonctionnalités de consultation, création, modification et suppression
 
