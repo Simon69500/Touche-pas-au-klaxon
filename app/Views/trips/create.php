@@ -1,3 +1,8 @@
+<?php
+$errors = $errors ?? [];
+$agences = $agences ?? [];
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>

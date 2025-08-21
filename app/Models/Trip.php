@@ -56,7 +56,7 @@ class Trip
     /**
      * Récupère tous les trajets triés par date de départ croissante.
      *
-     * @return array<int, array<string, mixed>> Liste des trajets
+     * @return array[] Liste des trajets
      */
     public static function getAll(): array
     {
@@ -68,7 +68,7 @@ class Trip
     /**
      * Récupère uniquement les trajets disponibles.
      *
-     * @return array<int, array<string, mixed>> Liste des trajets disponibles
+     * @return array[] Liste des trajets disponibles
      */
     public function tripAvailable(): array
     {

@@ -21,7 +21,6 @@ class Agence
     /** @var PDO Instance PDO pour la connexion à la base */
     private PDO $pdo;
 
-    
     /**
      * Constructeur : initialise la connexion PDO.
      */
@@ -30,39 +29,39 @@ class Agence
         $this->pdo = Database::getInstance()->getConnection();
     }
 
-
     /**
      * Récupère toutes les agences, triées par ordre alphabétique.
      *
-     * @return array<int, array<string, mixed>> Tableau associatif des agences
+     * @return array<int, array{id_agence: int, ville: string}>
      */
     public static function getAll(): array
     {   
         $instance = new self();
         $stmt = $instance->pdo->query("SELECT * FROM agences ORDER BY ville ASC");
+        /** @var array<int, array{id_agence: int, ville: string}> */
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
 
     /**
      * Trouve une agence par son identifiant.
      *
      * @param int $id_agence Identifiant de l'agence
-     * @return array<string, mixed>|null Tableau associatif de l'agence ou null si non trouvé
+     * @return array{id_agence: int, ville: string}|null
      */
     public static function find(int $id_agence): ?array
     {
         $instance = new self();
         $stmt = $instance->pdo->prepare("SELECT * FROM agences WHERE id_agence = :id_agence");
         $stmt->execute([':id_agence' => $id_agence]);
-        return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+        /** @var array{id_agence: int, ville: string}|false $result */
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result ?: null;
     }
-
 
     /**
      * Crée une nouvelle agence.
      *
-     * @param array<string, string> $data Données de l'agence (ex: ['ville' => 'Paris'])
+     * @param array{ville: string} $data Données de l'agence
      * @return bool True si la création a réussi, false sinon
      */
     public static function create(array $data): bool
@@ -76,12 +75,11 @@ class Agence
         ]);
     }
 
-
     /**
      * Modifie une agence existante.
      *
      * @param int $id_agence Identifiant de l'agence
-     * @param array<string, string> $data Données à mettre à jour
+     * @param array{ville: string} $data Données à mettre à jour
      * @return bool True si la mise à jour a réussi, false sinon
      */
     public static function update(int $id_agence, array $data): bool
@@ -93,7 +91,6 @@ class Agence
             ':id_agence' => $id_agence
         ]);
     }
-
 
     /**
      * Supprime une agence par son identifiant.
