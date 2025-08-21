@@ -12,6 +12,7 @@
     <?php include __DIR__ . '/../../layouts/header.php'; ?>
 
 <main class="container mt-4">
+<?php $agences = $agences ?? []; ?>
 
     <h1>Liste des agences</h1>
 

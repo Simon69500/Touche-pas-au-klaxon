@@ -5,26 +5,26 @@
     <link rel="stylesheet" href="/assets/css/index.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
-    
     <title>Accueil - Touche pas au klaxon</title>
 </head>
 <body>
     <!-- Header -->
-    <?php include __DIR__. '/../layouts/header.php'; ?>
+    <?php include __DIR__ . '/../layouts/header.php'; ?>
 
-    <!-- Contenue principal -->
-     <main class="container mt-5">
+    <!-- Contenu principal -->
+    <main class="container mt-5">
 
-        <!-- Titre principal personnalisé -->
+        <!-- Titre -->
         <?php if(isset($_SESSION['user'])): ?>
-            <h1>Trajet proposés</h1>
+            <h1>Trajets proposés</h1>
         <?php else: ?>
             <h1>Pour obtenir plus d'information sur un trajet, veuillez vous connecter</h1>
         <?php endif; ?>
-        
+
         <!-- Tableau des trajets -->
         <?php $baseUrl = \App\Config\Config::baseUrl(); ?>
+        <?php $trips = $trips ?? []; ?>
+
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -35,47 +35,44 @@
                     <th scope="col">Date arrivée</th>
                     <th scope="col">Heure arrivée</th>
                     <th scope="col">Places dispo</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
-            <tbody>  
+            <tbody>
                 <?php foreach($trips as $trip): ?>
-                <tr>
-                    <!-- Infos de trajet -->
-                    <td><?= htmlspecialchars($trip['ville_depart']) ?></td>
-                    <td><?= date('Y-m-d', strtotime($trip['date_heure_depart'])) ?></td>
-                    <td><?= date('H:i', strtotime($trip['date_heure_depart'])) ?></td>
-                    <td><?= htmlspecialchars($trip['ville_arrivee']) ?></td>
-                    <td><?= date('Y-m-d', strtotime($trip['date_heure_arrive'])) ?></td>
-                    <td><?= date('H:i', strtotime($trip['date_heure_arrive'])) ?></td>
-                    <td><?= htmlspecialchars($trip['places_dispo']) ?></td>
-
-                    <!-- Actions -->
-                    <td>
-                        <?php if(isset($_SESSION['user'])): ?>
-                            <!-- Icône pour ouvrir le modal -->
-                            <a href="#" data-bs-toggle="modal" data-bs-target="#trajetModal<?= $trip['id_trajet'] ?>"><i class="bi bi-eye"></i></a>
-                            
-                            <!-- Si l’utilisateur est l’auteur, il peut aussi modifier/supprimer -->
-                            <?php if(isset($_SESSION['user']) && $_SESSION['user']['id'] == $trip['auteur_id']): ?>
-                            <a href="<?= $baseUrl ?>?page=edit&id=<?= $trip['id_trajet'] ?>"><i class="bi bi-pencil-square"></i></a>
-                            <a href="<?= $baseUrl ?>?page=delete&id=<?= $trip['id_trajet'] ?>"><i class="bi bi-trash"></i></a>
+                    <?php $trip = $trip ?? []; ?>
+                    <tr>
+                        <td><?= htmlspecialchars($trip['ville_depart'] ?? '-') ?></td>
+                        <td><?= isset($trip['date_heure_depart']) ? date('Y-m-d', strtotime($trip['date_heure_depart'])) : '-' ?></td>
+                        <td><?= isset($trip['date_heure_depart']) ? date('H:i', strtotime($trip['date_heure_depart'])) : '-' ?></td>
+                        <td><?= htmlspecialchars($trip['ville_arrivee'] ?? '-') ?></td>
+                        <td><?= isset($trip['date_heure_arrive']) ? date('Y-m-d', strtotime($trip['date_heure_arrive'])) : '-' ?></td>
+                        <td><?= isset($trip['date_heure_arrive']) ? date('H:i', strtotime($trip['date_heure_arrive'])) : '-' ?></td>
+                        <td><?= htmlspecialchars($trip['places_dispo'] ?? 'N/A') ?></td>
+                        <td>
+                            <?php if(isset($_SESSION['user'])): ?>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#trajetModal<?= htmlspecialchars($trip['id_trajet'] ?? 0) ?>"><i class="bi bi-eye"></i></a>
+                                <?php if(($_SESSION['user']['id'] ?? 0) === ($trip['auteur_id'] ?? 0)): ?>
+                                    <a href="<?= $baseUrl ?>?page=edit&id=<?= htmlspecialchars($trip['id_trajet'] ?? 0) ?>"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="<?= $baseUrl ?>?page=delete&id=<?= htmlspecialchars($trip['id_trajet'] ?? 0) ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer le trajet ?');"><i class="bi bi-trash"></i></a>
+                                <?php endif; ?>
                             <?php endif; ?>
-                        <?php endif; ?>
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
 
-                <!-- Modal -->
-                <?php include __DIR__. '/../layouts/modal.php'; ?>
+                    <!-- Modal -->
+                    <?php $currentTrip = $trip; ?>
+                    <?php include __DIR__ . '/../layouts/modal.php'; ?>
 
                 <?php endforeach; ?>
             </tbody>
-        </table>                                             
-     </main>
+        </table>
 
-     <!-- Footer -->
-    <?php include __DIR__. '/../layouts/footer.php'; ?>
+    </main>
+
+    <!-- Footer -->
+    <?php include __DIR__ . '/../layouts/footer.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
 </html>

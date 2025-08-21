@@ -4,17 +4,31 @@ namespace App\Controllers;
 
 use App\Models\User;
 
+/**
+ * Contrôleur gérant l'authentification des utilisateurs.
+ * 
+ * Inclut la connexion, l'inscription et la déconnexion.
+ */
 class AuthController
 {
         // --- Connexion existante ---
 
-    // Afficher la page du formulaire de connexion
+    /**
+     * Affiche le formulaire de connexion.
+     *
+     * @return void
+     */
     public function loginForm()
     {
         require __DIR__ . '/../Views/auth/login.php';
     }
 
-    // On récupére les données envoyées par le formulaire
+
+    /**
+     * Traite la soumission du formulaire de connexion.
+     *
+     * @return void
+     */
     public function login()
     {
         $email = trim($_POST['email'] ?? '');
@@ -45,7 +59,13 @@ class AuthController
     }
     }
 
-    // Si la session est vide sans utilisateur on revoi vers la page login
+
+    /**
+     * Vérifie qu'un utilisateur est connecté.
+     *
+     * @throws \Exception si aucun utilisateur connecté
+     * @return void
+     */
     public static function requireLogin()
     {
         if(empty($_SESSION['user'])) {
@@ -54,7 +74,13 @@ class AuthController
         }
     }
 
-    // On vérifie si l'utilisateur connecté est bien l'admin sinon message d'erreur
+
+    /**
+     * Vérifie qu'un utilisateur connecté est administrateur.
+     *
+     * @throws \Exception si l'utilisateur n'est pas admin
+     * @return void
+     */
     public static function requireAdmin()
     {
         self::requireLogin();
@@ -68,13 +94,22 @@ class AuthController
 
         // --- Partie Inscription ---
 
-    // Affiche le formulaire d'inscription
+    /**
+     * Affiche le formulaire d'inscription.
+     *
+     * @return void
+     */
     public function registerForm()
     {
         require __DIR__. '/../Views/auth/register.php';
     }
 
-    // Traite le formulaire d'inscription 
+
+    /**
+     * Traite le formulaire d'inscription d'un nouvel utilisateur.
+     *
+     * @return void
+     */
     public function register()
     {
         $nom = trim($_POST['nom'] ?? '');
@@ -113,9 +148,14 @@ class AuthController
         exit;
     }
 
+    
     // -- Partie déconnexion -- 
 
-        // Partie pour la deconnexion de l'utilisateur
+    /**
+     * Déconnecte l'utilisateur et détruit la session.
+     *
+     * @return void
+     */
     public function logout()
     {   
         session_unset();

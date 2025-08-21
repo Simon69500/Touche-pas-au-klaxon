@@ -6,11 +6,19 @@ use App\Models\User;
 use App\Models\Trip;
 use App\Models\Agence;
 
+/**
+ * Contrôleur administratif.
+ * 
+ * Permet la gestion des utilisateurs, trajets et agences.
+ * Accessible uniquement aux administrateurs.
+ */
 class AdminController {
 
+    /**
+     * Vérifie l'accès admin lors de la construction.
+     */
     public function __construct()
     {
-        // Contrôle d'accès admin uniquement
         if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
             header('Location: index.php'); 
             exit;
@@ -18,7 +26,13 @@ class AdminController {
     }
 
     /**
-     * Méthode privée pour charger les modèles et leurs données
+     * Charge les données des modèles pour le dashboard.
+     *
+     * @return array{
+     *   users: array<int, array<string, mixed>>,
+     *   trips: array<array<string, mixed>>,
+     *   agences: array<int, array{id_agence: int, ville: string}>
+     * }
      */
     private function loadData(): array
     {
@@ -30,36 +44,47 @@ class AdminController {
     }
 
     /**
-     * Dashboard admin
+     * Affiche le dashboard admin.
+     *
+     * @return void
      */
-    public function dashboard()
+    public function dashboard(): void
     {
         $data = $this->loadData();
         require __DIR__ . '/../Views/admin/dashboard.php';
     }
 
     /**
-     * Liste des utilisateurs
+     * Liste tous les utilisateurs.
+     *
+     * @return void
      */
-    public function listUsers()
+    public function listUsers(): void
     {
+        /** @var User[] $users */
         $users = User::getAll();
         require __DIR__ . '/../Views/admin/users/listUsers.php';
     }
 
     /**
-     * Liste des trajets
+     * Liste tous les trajets disponibles.
+     *
+     * @return void
      */
-    public function listTrips()
+    public function listTrips(): void
     {
+        /** @var Trip[] $trips */
         $trips = (new Trip())->tripAvailable();
         require __DIR__ . '/../Views/admin/trips/listTrips.php';
     }
 
     /**
-     * Supprimer un trajet
+     * Supprime un trajet.
+     *
+     * @param int $id_trajet Identifiant du trajet
+     * @return void
      */
-    public function deleteTrip(int $id_trajet)
+    public function deleteTrip(int $id_trajet): void
     {
         Trip::delete($id_trajet);
         header('Location: index.php?controller=admin&action=listTrips');
@@ -67,19 +92,23 @@ class AdminController {
     }
 
     /**
-     * Liste des agences
+     * Liste toutes les agences.
+     *
+     * @return void
      */
-    public function listAgences()
+    public function listAgences(): void
     {
+        /** @var Agence[] $agences */
         $agences = Agence::getAll();
-
         require __DIR__ . '/../Views/admin/agencies/listAgences.php';
     }
 
     /**
-     * Créer une agence
+     * Crée une nouvelle agence.
+     *
+     * @return void
      */
-    public function createAgence()
+    public function createAgence(): void
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ville = trim($_POST['ville']);
@@ -88,15 +117,21 @@ class AdminController {
             exit;
         }
 
+        /** @var Agence[] $agences */
         $agences = Agence::getAll(); 
         require __DIR__ . '/../Views/admin/agencies/createAgence.php';
     }
 
     /**
-     * modifier une agence
+     * Modifie une agence existante.
+     *
+     * @param int $id_agence ID de l’agence
+     * @return void
      */
-    public function editAgence(int $id_agence)
+
+    public function editAgence(int $id_agence): void
     {
+        /** @var Agence|null $agence */
         $agence = Agence::find($id_agence);
 
         if(!$agence) {
@@ -114,11 +149,14 @@ class AdminController {
         require __DIR__ . '/../Views/admin/agencies/editAgence.php';
     }
 
-
     /**
-     * Supprimer une agence
+     * Modifie une agence existante.
+     *
+     * @param int $id_agence ID de l'agence
+     * @return void
      */
-    public function deleteAgence(int $id_agence)
+
+    public function deleteAgence(int $id_agence): void
     {
         Agence::delete($id_agence);
         header('Location: index.php?controller=admin&action=listAgences');

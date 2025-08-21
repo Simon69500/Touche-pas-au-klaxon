@@ -5,6 +5,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
     exit;
 }
 
+$agence = $agence ?? ['ville' => '']; 
 ?>
 
 <!DOCTYPE html>

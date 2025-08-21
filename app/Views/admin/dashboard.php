@@ -10,6 +10,7 @@ $users = \App\Models\User::getAll();
 $tripModel = new \App\Models\Trip();
 $trips = $tripModel->tripAvailable(); 
 $agences = \App\Models\Agence::getAll();
+
 ?>
 
 <!DOCTYPE html>
@@ -57,10 +58,10 @@ $agences = \App\Models\Agence::getAll();
                     <tbody>
                         <?php foreach($users as $user): ?>
                         <tr>
-                            <td><?= htmlspecialchars($user['nom']) ?></td>
-                            <td><?= htmlspecialchars($user['prenom']) ?></td>
-                            <td><?= htmlspecialchars($user['email']) ?></td>
-                            <td><?= htmlspecialchars($user['role']) ?></td>
+                            <td><?= htmlspecialchars(strval($user['nom'] )) ?></td>
+                            <td><?= htmlspecialchars(strval($user['prenom'] )) ?></td>
+                            <td><?= htmlspecialchars(strval($user['email'] )) ?></td>
+                            <td><?= htmlspecialchars(strval($user['role'] )) ?></td>
                         </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -87,17 +88,17 @@ $agences = \App\Models\Agence::getAll();
                     <?php foreach($trips as $trip): ?>
                         <tr>
                             <!-- Infos de trajet -->
-                            <td><?= htmlspecialchars($trip['ville_depart']) ?></td>
+                            <td><?= htmlspecialchars(strval($trip['ville_depart'] )) ?></td>
                             <td><?= date('Y-m-d', strtotime($trip['date_heure_depart'])) ?></td>
                             <td><?= date('H:i', strtotime($trip['date_heure_depart'])) ?></td>
-                            <td><?= htmlspecialchars($trip['ville_arrivee']) ?></td>
+                            <td><?= htmlspecialchars(strval($trip['ville_arrivee'] )) ?></td>
                             <td><?= date('Y-m-d', strtotime($trip['date_heure_arrive'])) ?></td>
                             <td><?= date('H:i', strtotime($trip['date_heure_arrive'])) ?></td>
-                            <td><?= htmlspecialchars($trip['places_dispo']) ?></td>
-                            <td><?= htmlspecialchars($trip['prenom']. ' ' . $trip['nom']) ?></td>
+                            <td><?= htmlspecialchars(strval($trip['places_dispo'] )) ?></td>
+                            <td><?= htmlspecialchars(strval(($trip['prenom'] ) . ' ' . ($trip['nom'] ))) ?></td>
                             <td>
-                                <a href="index.php?controller=admin&action=editTrip&id=<?= $trip['id_trajet'] ?>"><i class="bi bi-pencil-square"></i></a>
-                                <a href="index.php?controller=admin&action=deleteTrip&id=<?= $trip['id_trajet'] ?>"><i class="bi bi-trash"></i></a>
+                                <a href="index.php?controller=admin&action=editTrip&id=<?= (int)$trip['id_trajet'] ?>"><i class="bi bi-pencil-square"></i></a>
+                                <a href="index.php?controller=admin&action=deleteTrip&id=<?= (int)$trip['id_trajet'] ?>"><i class="bi bi-trash"></i></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -117,10 +118,10 @@ $agences = \App\Models\Agence::getAll();
                     <tbody>
                         <?php foreach($agences as $agence): ?>
                         <tr>
-                            <td><?= htmlspecialchars($agence['ville']) ?></td>
+                            <td><?= htmlspecialchars((string)($agence['ville'] )) ?></td>
                             <td>
-                                <a href="index.php?controller=admin&action=editAgence&id=<?= $agence['id_agence'] ?>"><i class="bi bi-pencil-square"></i></a>
-                                <a href="index.php?controller=admin&action=deleteAgence&id=<?= $agence['id_agence'] ?>"><i class="bi bi-trash"></i></a>
+                                <a href="index.php?controller=admin&action=editAgence&id=<?= (int)$agence['id_agence'] ?>"><i class="bi bi-pencil-square"></i></a>
+                                <a href="index.php?controller=admin&action=deleteAgence&id=<?= (int)$agence['id_agence'] ?>"><i class="bi bi-trash"></i></a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
