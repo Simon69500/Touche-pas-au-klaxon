@@ -5,10 +5,19 @@ namespace App\Controllers;
 use App\Models\Trip;
 use App\Models\Agence;
 
+/**
+ * Contrôleur gérant les trajets.
+ * 
+ * Permet de créer, éditer, supprimer et afficher les trajets.
+ */
 class TripController
 {
 
-    // Afficher le formulaire de création de trajet
+    /**
+     * Affiche le formulaire de création de trajet.
+     *
+     * @return void
+     */
     public function createForm()
     {
         $agenceModel = new Agence();
@@ -16,7 +25,12 @@ class TripController
         require __DIR__ . '/../Views/trips/create.php';
     }
 
-    // Traiter le formulaire de création
+
+    /**
+     * Traite le formulaire de création de trajet.
+     *
+     * @return void
+     */
     public function create()
     {
         $errors = [];
@@ -56,7 +70,12 @@ class TripController
         }
     }
 
-    // -- Afficher le formulaire d'édition --
+
+    /**
+     * Affiche le formulaire d'édition pour un trajet existant.
+     *
+     * @return void
+     */
     public function editForm()
     {
 
@@ -82,7 +101,12 @@ class TripController
         require __DIR__ .  '/../Views/trips/edit.php';
     }
     
-    // -- Traiter le formulaire d'édition --
+
+    /**
+     * Traite le formulaire d'édition d'un trajet.
+     *
+     * @return void
+     */
     public function edit()
     {
 
@@ -140,13 +164,20 @@ class TripController
 
 
     /**
-     * Supprimer un trajet 
-     * @method delete
+     * Supprime un trajet.
+     *
+     * Vérifie que l'utilisateur connecté est l'auteur du trajet.
+     *
+     * @return void
      */
+
     public function delete() 
     {
 
         session_start();
+
+        $tripModel = new Trip();
+        $trip = null;
 
         if(!isset($_SESSION['user'])) {
             header('Location: /login');
@@ -169,6 +200,12 @@ class TripController
         exit;
     }
 
+    
+    /**
+     * Affiche la page d'accueil avec les trajets disponibles.
+     *
+     * @return void
+     */
     public function home() {
     $tripModel = new \App\Models\Trip();
     $trips = $tripModel->tripAvailable(); // méthode à créer dans le modèle

@@ -6,8 +6,17 @@ use App\Models\User;
 use App\Models\Trip;
 use App\Models\Agence;
 
+/**
+ * Contrôleur administratif.
+ * 
+ * Permet la gestion des utilisateurs, trajets et agences.
+ * Accessible uniquement aux administrateurs.
+ */
 class AdminController {
 
+    /**
+     * Vérifie l'accès admin lors de la construction.
+     */
     public function __construct()
     {
         // Contrôle d'accès admin uniquement
@@ -17,8 +26,11 @@ class AdminController {
         }
     }
 
+
     /**
-     * Méthode privée pour charger les modèles et leurs données
+     * Charge les données des modèles pour le dashboard.
+     *
+     * @return array Contient les utilisateurs, trajets et agences
      */
     private function loadData(): array
     {
@@ -29,8 +41,11 @@ class AdminController {
         ];
     }
 
+
     /**
-     * Dashboard admin
+     * Affiche le dashboard admin.
+     *
+     * @return void
      */
     public function dashboard()
     {
@@ -38,8 +53,11 @@ class AdminController {
         require __DIR__ . '/../Views/admin/dashboard.php';
     }
 
+
     /**
-     * Liste des utilisateurs
+     * Liste tous les utilisateurs.
+     *
+     * @return void
      */
     public function listUsers()
     {
@@ -47,8 +65,11 @@ class AdminController {
         require __DIR__ . '/../Views/admin/users/listUsers.php';
     }
 
+
     /**
-     * Liste des trajets
+     * Liste tous les trajets disponibles.
+     *
+     * @return void
      */
     public function listTrips()
     {
@@ -56,8 +77,12 @@ class AdminController {
         require __DIR__ . '/../Views/admin/trips/listTrips.php';
     }
 
+
     /**
-     * Supprimer un trajet
+     * Supprime un trajet.
+     *
+     * @param int $id_trajet Identifiant du trajet
+     * @return void
      */
     public function deleteTrip(int $id_trajet)
     {
@@ -66,8 +91,11 @@ class AdminController {
         exit;
     }
 
+
     /**
-     * Liste des agences
+     * Liste toutes les agences.
+     *
+     * @return void
      */
     public function listAgences()
     {
@@ -76,8 +104,11 @@ class AdminController {
         require __DIR__ . '/../Views/admin/agencies/listAgences.php';
     }
 
+
     /**
-     * Créer une agence
+     * Crée une nouvelle agence.
+     *
+     * @return void
      */
     public function createAgence()
     {
@@ -92,8 +123,12 @@ class AdminController {
         require __DIR__ . '/../Views/admin/agencies/createAgence.php';
     }
 
+
     /**
-     * modifier une agence
+     * Modifie une agence existante.
+     *
+     * @param int $id_agence Identifiant de l'agence
+     * @return void
      */
     public function editAgence(int $id_agence)
     {
@@ -116,7 +151,10 @@ class AdminController {
 
 
     /**
-     * Supprimer une agence
+     * Supprime une agence.
+     *
+     * @param int $id_agence Identifiant de l'agence
+     * @return void
      */
     public function deleteAgence(int $id_agence)
     {

@@ -1,5 +1,5 @@
-
- <!-- Modal -->
+<?php if(isset($trip)): ?>
+<!-- Modal -->
 <div class="modal fade" id="trajetModal<?= $trip['id_trajet'] ?>" tabindex="-1" aria-labelledby="trajetModalLabel<?= $trip['id_trajet'] ?>" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -14,18 +14,18 @@
 
             <!-- Body -->
             <div class="modal-body">
-                    <p><strong class="p-2">Conducteur :</strong><?= htmlspecialchars($trip['prenom']. ' ' . $trip['nom'] ?? 'Inconnu') ?></p>
-                    <p><strong class="p-2">Téléphone :</strong><?= htmlspecialchars($trip['telephone'] ?? '-') ?></p>
-                    <p><strong class="p-2">Email :</strong><?= htmlspecialchars($trip['email'] ?? '-') ?></p>
-                    <p><strong class="p-2">Places totals :</strong><?= htmlspecialchars($trip['places_dispo'] ?? 'N/A') ?></p>
-                </div>
+                <p><strong class="p-2">Conducteur :</strong><?= htmlspecialchars(($trip['prenom'] ?? 'Inconnu') . ' ' . ($trip['nom'] ?? '')) ?></p>
+                <p><strong class="p-2">Téléphone :</strong><?= htmlspecialchars($trip['telephone'] ?? '-') ?></p>
+                <p><strong class="p-2">Email :</strong><?= htmlspecialchars($trip['email'] ?? '-') ?></p>
+                <p><strong class="p-2">Places totals :</strong><?= htmlspecialchars($trip['places_dispo'] ?? 'N/A') ?></p>
+            </div>
 
              <!-- Footer -->    
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Fermer</button>
                 
                 <!-- Si utilisateur = auteur -->
-                <?php if (isset($_SESSION['user']) && $_SESSION['user']['id'] === (int)$trip['auteur_id']): ?>
+                <?php if (isset($_SESSION['user']) && $_SESSION['user']['id'] === (int)($trip['auteur_id'] ?? 0)): ?>
                     <a href="/trips/edit?id=<?= $trip['id_trajet'] ?>" class="btn btn-secondary">Modifier</a>
                     <a href="/trips/delete?id=<?= $trip['id_trajet'] ?>" class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer le trajet ?');">Supprimer</a>
                 <?php endif; ?>
@@ -33,3 +33,4 @@
         </div>
     </div>
 </div>
+<?php endif; ?>

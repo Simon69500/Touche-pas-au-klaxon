@@ -28,6 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $users = $users ?? []; ?>
                         <?php foreach($users as $user): ?>
                         <tr>
                             <td><?= htmlspecialchars($user['nom']) ?></td>

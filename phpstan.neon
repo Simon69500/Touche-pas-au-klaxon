@@ -1,11 +1,19 @@
 parameters:
-    level: 1  # Commence niveau 1, monte progressivement vers 8
+    # Niveau de vérification (0 = le plus laxiste, 8 = strict)
+    level: 5
+
+    # Chemins à analyser
     paths:
         - app
-        - public
+
+    # Chemins à exclure
     excludePaths:
         - vendor
         - node_modules
         - tests
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
+
+    # Vérifications avancées
+    checkMissingIterableValueType: true
+    checkGenericClassInNonGenericObjectType: true
+    checkUninitializedProperties: true
+    checkExplicitMixed: true
