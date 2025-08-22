@@ -16,18 +16,18 @@
 
         <!-- Titre -->
         <?php if(isset($_SESSION['user'])): ?>
-            <h1>Trajets proposés</h1>
+            <h1 class="m-4">Trajets proposés</h1>
         <?php else: ?>
-            <h1>Pour obtenir plus d'information sur un trajet, veuillez vous connecter</h1>
+            <h1 class="m-4">Pour obtenir plus d'information sur un trajet, veuillez vous connecter</h1>
         <?php endif; ?>
 
         <!-- Tableau des trajets -->
         <?php $baseUrl = \App\Config\Config::baseUrl(); ?>
         <?php $trips = $trips ?? []; ?>
 
-        <table class="table table-striped">
+        <table class="table table-striped p-3">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th scope="col">Départ</th>
                     <th scope="col">Date départ</th>
                     <th scope="col">Heure départ</th>
@@ -41,7 +41,7 @@
             <tbody>
                 <?php foreach($trips as $trip): ?>
                     <?php $trip = $trip ?? []; ?>
-                    <tr>
+                    <tr class="text-center">
                         <td><?= htmlspecialchars($trip['ville_depart'] ?? '-') ?></td>
                         <td><?= isset($trip['date_heure_depart']) ? date('Y-m-d', strtotime($trip['date_heure_depart'])) : '-' ?></td>
                         <td><?= isset($trip['date_heure_depart']) ? date('H:i', strtotime($trip['date_heure_depart'])) : '-' ?></td>

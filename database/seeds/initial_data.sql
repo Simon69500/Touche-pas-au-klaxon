@@ -48,3 +48,24 @@ VALUES
 -- Ajout de l'admin
 ('Admin', 'Super', '0600000000', 'admin@entreprise.fr', '$2y$10$9Imke9EF2HhOx/GuMfJCUetqWYKICjocnquq7nYwjB7tJtp/a8q7y', 'admin');
 
+
+/**
+ * Insérer des trajets de test pour la table "trajets"
+ *  Comprend des trajets passés et futurs, avec différents auteurs et contacts
+ * Permet de tester l'affichage des trajets disponibles et la gestion des places
+ */
+INSERT INTO trajets (agence_depart_id, agence_arrive_id, contact_id, auteur_id, places_total, places_dispo, date_heure_depart, date_heure_arrive)
+VALUES
+-- Trajets aujourd'hui/futurs
+(1, 2, 3, 3, 4, 2, '2025-08-22 08:00:00', '2025-08-22 10:00:00'),
+(2, 1, 4, 4, 3, 1, '2025-08-23 09:30:00', '2025-08-23 11:30:00'),
+(3, 1, 5, 5, 5, 5, '2025-08-24 07:00:00', '2025-08-24 09:30:00'),
+(1, 3, 6, 6, 4, 3, '2025-08-25 12:00:00', '2025-08-25 14:00:00'),
+(2, 3, 7, 7, 2, 1, '2025-08-26 14:00:00', '2025-08-26 16:30:00'),
+-- Trajets passés
+(1, 2, 3, 3, 4, 0, '2025-08-10 08:00:00', '2025-08-10 10:00:00'),
+(2, 1, 4, 4, 3, 0, '2025-08-11 09:30:00', '2025-08-11 11:30:00'),
+(3, 1, 5, 5, 5, 0, '2025-08-12 07:00:00', '2025-08-12 09:30:00'),
+-- Trajets à venir
+(1, 2, 3, 3, 4, 4, '2025-08-27 08:00:00', '2025-08-27 10:00:00'),
+(2, 3, 4, 4, 3, 2, '2025-08-28 09:30:00', '2025-08-28 11:30:00');
