@@ -93,7 +93,7 @@ class Agence
     }
 
     /**
-     * Supprime une agence par son identifiant.
+     * Supprime une agence par son identifiant si elle n'est utilisée par aucun trajet.
      *
      * @param int $id_agence Identifiant de l'agence à supprimer
      * @return bool True si la suppression a réussi, false sinon
@@ -101,9 +101,24 @@ class Agence
     public static function delete(int $id_agence): bool
     {
         $instance = new self();
-        $stmt = $instance->pdo->prepare("DELETE FROM agences WHERE id_agence = :id_agence");
-        return $stmt->execute([':id_agence' => $id_agence]);
+
+        // Vérifier si l'agence est utilisée dans les trajets
+        $stmtCheck = $instance->pdo->prepare(
+            "SELECT COUNT(*) FROM trajets WHERE agence_depart_id = :id_agence OR agence_arrive_id = :id_agence"
+        );
+        $stmtCheck->execute([':id_agence' => $id_agence]);
+        $count = (int)$stmtCheck->fetchColumn();
+
+        if ($count > 0) {
+            // Impossible de supprimer, renvoyer false
+            return false;
+        }
+
+        // Supprimer l'agence
+        $stmtDelete = $instance->pdo->prepare("DELETE FROM agences WHERE id_agence = :id_agence");
+        return $stmtDelete->execute([':id_agence' => $id_agence]);
     }
+
 
     // ------------------------
     // Getters / Setters

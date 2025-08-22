@@ -20,8 +20,9 @@ $agences = \App\Models\Agence::getAll();
     <title>Dashboard Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="<?= \App\Config\Config::baseUrl() ?>/public/assets/css/main.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
     <!-- Header -->
     <?php include __DIR__ . '/../layouts/header.php'; ?>
@@ -97,7 +98,6 @@ $agences = \App\Models\Agence::getAll();
                             <td><?= htmlspecialchars(strval($trip['places_dispo'] )) ?></td>
                             <td><?= htmlspecialchars(strval(($trip['prenom'] ) . ' ' . ($trip['nom'] ))) ?></td>
                             <td>
-                                <a href="index.php?controller=admin&action=editTrip&id=<?= (int)$trip['id_trajet'] ?>"><i class="bi bi-pencil-square"></i></a>
                                 <a href="index.php?controller=admin&action=deleteTrip&id=<?= (int)$trip['id_trajet'] ?>"><i class="bi bi-trash"></i></a>
                             </td>
                         </tr>

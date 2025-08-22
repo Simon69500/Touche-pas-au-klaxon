@@ -15,14 +15,20 @@ $agence = $agence ?? ['ville' => ''];
     <title>Modifier l'agence</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="<?= \App\Config\Config::baseUrl() ?>/public/assets/css/main.css">
+
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
     <!-- Header -->
     <?php include __DIR__ . '/../../layouts/header.php'; ?>
 
     <main class="container mt-5">
-        <h1>Modifier l'agence</h1>
+
+    <div class="d-flex flex-row align-items-center">
+        <a class="iconBS" href="index.php?controller=admin&action=listAgences"><i class="bi bi-arrow-bar-left fs-2"></i></a>
+        <h1 class="text-center p-3">Modifier l'agence</h1>
+    </div>       
 
         <form method="POST">
             <div class="mb-3">

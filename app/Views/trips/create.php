@@ -10,14 +10,19 @@ $agences = $agences ?? [];
     <title>Créer son trajet</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="<?= \App\Config\Config::baseUrl() ?>/public/assets/css/main.css">    
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
         <!-- Header -->
     <?php include __DIR__. '/../layouts/header.php'; ?>
 
     <main class="container mt-5">
         <div class="create-container">
-            <h2>Créer votre Trajet</h2>
+            <div class="d-flex flex-row align-items-center">
+                <a class="iconBS" href="?page=home"><i class="bi bi-arrow-bar-left fs-2"></i></a>
+                <h2>Créer votre Trajet</h2>
+            </div>
             
             <!-- Affiche les erreurs -->
             <?php if(!empty($errors)): ?>

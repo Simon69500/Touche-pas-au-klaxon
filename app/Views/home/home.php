@@ -2,30 +2,43 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/assets/css/index.css" />
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="<?= \App\Config\Config::baseUrl() ?>/public/assets/css/main.css">
+
     <title>Accueil - Touche pas au klaxon</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <!-- Header -->
     <?php include __DIR__ . '/../layouts/header.php'; ?>
 
     <!-- Contenu principal -->
-    <main class="container mt-5">
+    <main class="container">
 
         <!-- Titre -->
         <?php if(isset($_SESSION['user'])): ?>
-            <h1 class="m-4">Trajets proposés</h1>
+            <h1 class="m-4 p-3 text-center">Trajets proposés</h1>
         <?php else: ?>
-            <h1 class="m-4">Pour obtenir plus d'information sur un trajet, veuillez vous connecter</h1>
+            <h1 class="m-4 p-3 text-center">Pour obtenir plus d'information sur un trajet, veuillez vous connecter</h1>
         <?php endif; ?>
 
         <!-- Tableau des trajets -->
         <?php $baseUrl = \App\Config\Config::baseUrl(); ?>
         <?php $trips = $trips ?? []; ?>
 
-        <table class="table table-striped p-3">
+        <!-- Message après modification ou suppresion -->
+        <?php if(!empty($_SESSION['flash_message'])): ?>
+            <?php $flash = $_SESSION['flash_message']; ?>
+            <div class="alert alert-<?= htmlspecialchars($flash['type']) ?>" role="alert">
+                <?= htmlspecialchars($flash['message']) ?>
+            </div>
+            <?php unset($_SESSION['flash_message']); ?>
+        <?php endif; ?>
+
+
+        <table class="table table-striped m-3 p-3">
             <thead>
                 <tr class="text-center">
                     <th scope="col">Départ</th>

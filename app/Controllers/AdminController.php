@@ -86,6 +86,11 @@ class AdminController {
      */
     public function deleteTrip(int $id_trajet): void
     {
+
+        $_SESSION['flash_message'] = [
+            'type' => 'success',
+            'message' => "le trajet a été supprimée avec succès !"
+        ];        
         Trip::delete($id_trajet);
         header('Location: index.php?controller=admin&action=listTrips');
         exit;
@@ -116,6 +121,11 @@ class AdminController {
             header('Location: index.php?controller=admin&action=listAgences');
             exit;
         }
+
+        $_SESSION['flash_message'] = [
+                'type' => 'success',
+                'message' => "L'agence a été créer avec succès !"
+        ];
 
         /** @var Agence[] $agences */
         $agences = Agence::getAll(); 
@@ -150,16 +160,29 @@ class AdminController {
     }
 
     /**
-     * Modifie une agence existante.
+     * Supprime une agence existante si elle n'est pas utilisée par des trajets.
      *
      * @param int $id_agence ID de l'agence
      * @return void
      */
-
     public function deleteAgence(int $id_agence): void
     {
-        Agence::delete($id_agence);
+        $deleted = \App\Models\Agence::delete($id_agence);
+
+        if (!$deleted) {
+            $_SESSION['flash_message'] = [
+                'type' => 'danger',
+                'message' => "Impossible de supprimer cette agence : elle est utilisée par des trajets."
+            ];
+        } else {
+            $_SESSION['flash_message'] = [
+                'type' => 'success',
+                'message' => "L'agence a été supprimée avec succès !"
+            ];
+        }
+
         header('Location: index.php?controller=admin&action=listAgences');
         exit;
-    }
+}
+
 }
