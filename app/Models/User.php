@@ -58,7 +58,7 @@ class User
         $stmt->execute(['email' => $email]);
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($data) {
+        if (!$data) {
             return null;
         }
 
