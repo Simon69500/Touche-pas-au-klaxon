@@ -1,0 +1,10 @@
+@use '../variables' as *;
+
+.iconBS {
+    background-color: $bgColor-main;
+    color: $colorAccent-1;
+
+        &:hover {
+        background-color: $bgColor-main;
+    }
+}

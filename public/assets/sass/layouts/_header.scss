@@ -1,0 +1,8 @@
+@use '../variables' as *;
+
+
+header.header {
+    background-color: $bgColor-accent !important;
+    color: $colorText-main !important;
+}
+

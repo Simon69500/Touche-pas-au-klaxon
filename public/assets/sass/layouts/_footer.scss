@@ -1,0 +1,6 @@
+@use '../variables' as *;
+
+footer.footer {
+    background-color: $bgColor-accent !important;
+    color: $colorText-main !important;
+}

@@ -1,0 +1,10 @@
+// Partials Layouts
+@use "layouts/header" as *;
+@use "layouts/footer" as *;
+
+// Partials Views
+@use "Views/index" as *;
+@use "Views/home" as *;
+@use "Views/login" as *;
+
+// Sass

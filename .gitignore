@@ -32,9 +32,4 @@ Thumbs.db
 # Documentation provisoire
 docs/docs/
 
-# Fichiers générés / build
-public/assets/
-public/css/
-public/js/
-public/maps/
-public/build/
+

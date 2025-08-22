@@ -1,0 +1,36 @@
+header.header {
+  background-color: #82b864 !important;
+  color: #384050 !important;
+}
+
+footer.footer {
+  background-color: #82b864 !important;
+  color: #384050 !important;
+}
+
+body {
+  background-color: #f1f8fc;
+  color: #384050;
+}
+
+button {
+  background-color: #0074c7;
+  color: white;
+}
+button:hover {
+  background-color: #00497c;
+}
+
+span {
+  color: #384050;
+}
+
+.iconBS {
+  background-color: #f1f8fc;
+  color: #00497c;
+}
+.iconBS:hover {
+  background-color: #f1f8fc;
+}
+
+/*# sourceMappingURL=main.css.map */
