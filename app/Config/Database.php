@@ -36,7 +36,7 @@ class Database
         $envFile = (getenv('APP_ENV') === 'testing') ? '.env.testing' : '.env';
 
         $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../', $envFile);
-        $dotenv->load();
+        $dotenv->safeload();
 
         $host = $_ENV['DB_HOST'] ?? 'localhost';
         $port = $_ENV['DB_PORT'] ?? 3306;
