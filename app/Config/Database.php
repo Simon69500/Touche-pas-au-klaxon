@@ -36,13 +36,13 @@ class Database
         $envFile = (getenv('APP_ENV') === 'testing') ? '.env.testing' : '.env';
 
         $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../', $envFile);
-        $dotenv->safeload();
+        $dotenv->safeLoad();
 
-        $host = $_ENV['DB_HOST'] ?? 'localhost';
-        $port = $_ENV['DB_PORT'] ?? 3306;
-        $db   = $_ENV['DB_NAME'] ?? '';
-        $user = $_ENV['DB_USER'] ?? '';
-        $pass = $_ENV['DB_PASS'] ?? '';
+        $host = $_ENV['DB_HOST'] ?? (getenv('DB_HOST') ?: 'localhost');
+        $port = $_ENV['DB_PORT'] ?? (getenv('DB_PORT') ?: 3306);
+        $db   = $_ENV['DB_NAME'] ?? (getenv('DB_NAME') ?: '');
+        $user = $_ENV['DB_USER'] ?? (getenv('DB_USER') ?: '');
+        $pass = $_ENV['DB_PASS'] ?? (getenv('DB_PASS') ?: '');
         $sslCa = __DIR__ . '/certs/aiven-ca.pem';
 
         try {
