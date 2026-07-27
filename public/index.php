@@ -1,7 +1,7 @@
 <?php
 
 // Autoload Composer pour charger toutes les classes
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.phpcd ../';
 
 // Démarrage de la session
 session_start();
