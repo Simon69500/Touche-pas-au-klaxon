@@ -12,6 +12,7 @@ yarn.lock
 .env
 .env.local
 .env.*.local
+.env.testing
 
 # Cache et logs
 *.log
